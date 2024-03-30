@@ -97,7 +97,7 @@ export default class MonitorScreen extends EventEmitter {
 
                 this.prevInComputer = this.inComputer;
             },
-            false
+            false,
         );
         document.addEventListener(
             'mousedown',
@@ -109,7 +109,7 @@ export default class MonitorScreen extends EventEmitter {
                 this.mouseClickInProgress = true;
                 this.prevInComputer = this.inComputer;
             },
-            false
+            false,
         );
         document.addEventListener(
             'mouseup',
@@ -126,7 +126,7 @@ export default class MonitorScreen extends EventEmitter {
                 this.mouseClickInProgress = false;
                 this.prevInComputer = this.inComputer;
             },
-            false
+            false,
         );
     }
 
@@ -163,11 +163,11 @@ export default class MonitorScreen extends EventEmitter {
 
                         // @ts-ignore
                         evt.clientX = Math.round(
-                            event.data.clientX * widthRatio + left
+                            event.data.clientX * widthRatio + left,
                         );
                         //@ts-ignore
                         evt.clientY = Math.round(
-                            event.data.clientY * heightRatio + top
+                            event.data.clientY * heightRatio + top,
                         );
                     } else if (event.data.type === 'keydown') {
                         // @ts-ignore
@@ -184,7 +184,7 @@ export default class MonitorScreen extends EventEmitter {
 
         // Set iframe attributes
         // PROD
-        iframe.src = 'https://os.henryheffernan.com/';
+        iframe.src = 'https://archive.org';
         /**
          * Use dev server is query params are present
          *
@@ -204,7 +204,7 @@ export default class MonitorScreen extends EventEmitter {
         iframe.className = 'jitter';
         iframe.id = 'computer-screen';
         iframe.frameBorder = '0';
-        iframe.title = 'HeffernanOS';
+        iframe.title = 'Innerwebpage';
 
         // Add iframe to container
         container.appendChild(iframe);
@@ -239,7 +239,7 @@ export default class MonitorScreen extends EventEmitter {
         // Create plane geometry
         const geometry = new THREE.PlaneGeometry(
             this.screenSize.width,
-            this.screenSize.height
+            this.screenSize.height,
         );
 
         // Create the GL plane mesh
@@ -305,7 +305,7 @@ export default class MonitorScreen extends EventEmitter {
                 layer.texture,
                 layer.blending,
                 layer.opacity,
-                offset
+                offset,
             );
             // Calculate the max offset
             if (offset > maxOffset) maxOffset = offset;
@@ -323,7 +323,7 @@ export default class MonitorScreen extends EventEmitter {
             }, 100);
         } else {
             this.videoTextures[videoId] = new THREE.VideoTexture(
-                video as HTMLVideoElement
+                video as HTMLVideoElement,
             );
         }
     }
@@ -339,7 +339,7 @@ export default class MonitorScreen extends EventEmitter {
         texture: THREE.Texture,
         blendingMode: THREE.Blending,
         opacity: number,
-        offset: number
+        offset: number,
     ) {
         // Create material
         const material = new THREE.MeshBasicMaterial({
@@ -353,7 +353,7 @@ export default class MonitorScreen extends EventEmitter {
         // Create geometry
         const geometry = new THREE.PlaneGeometry(
             this.screenSize.width,
-            this.screenSize.height
+            this.screenSize.height,
         );
 
         // Create mesh
@@ -361,7 +361,7 @@ export default class MonitorScreen extends EventEmitter {
 
         // Copy position and apply the depth offset
         mesh.position.copy(
-            this.offsetPosition(this.position, new THREE.Vector3(0, 0, offset))
+            this.offsetPosition(this.position, new THREE.Vector3(0, 0, offset)),
         );
 
         // Copy rotation
@@ -384,8 +384,8 @@ export default class MonitorScreen extends EventEmitter {
                     new THREE.Vector3(
                         -this.screenSize.width / 2,
                         0,
-                        maxOffset / 2
-                    )
+                        maxOffset / 2,
+                    ),
                 ),
                 rotation: new THREE.Euler(0, 90 * THREE.MathUtils.DEG2RAD, 0),
             },
@@ -396,8 +396,8 @@ export default class MonitorScreen extends EventEmitter {
                     new THREE.Vector3(
                         this.screenSize.width / 2,
                         0,
-                        maxOffset / 2
-                    )
+                        maxOffset / 2,
+                    ),
                 ),
                 rotation: new THREE.Euler(0, 90 * THREE.MathUtils.DEG2RAD, 0),
             },
@@ -408,8 +408,8 @@ export default class MonitorScreen extends EventEmitter {
                     new THREE.Vector3(
                         0,
                         this.screenSize.height / 2,
-                        maxOffset / 2
-                    )
+                        maxOffset / 2,
+                    ),
                 ),
                 rotation: new THREE.Euler(90 * THREE.MathUtils.DEG2RAD, 0, 0),
             },
@@ -420,8 +420,8 @@ export default class MonitorScreen extends EventEmitter {
                     new THREE.Vector3(
                         0,
                         -this.screenSize.height / 2,
-                        maxOffset / 2
-                    )
+                        maxOffset / 2,
+                    ),
                 ),
                 rotation: new THREE.Euler(90 * THREE.MathUtils.DEG2RAD, 0, 0),
             },
@@ -462,7 +462,7 @@ export default class MonitorScreen extends EventEmitter {
 
         const plane = new THREE.PlaneGeometry(
             this.screenSize.width,
-            this.screenSize.height
+            this.screenSize.height,
         );
 
         const mesh = new THREE.Mesh(plane, material);
@@ -470,8 +470,8 @@ export default class MonitorScreen extends EventEmitter {
         mesh.position.copy(
             this.offsetPosition(
                 this.position,
-                new THREE.Vector3(0, 0, maxOffset - 5)
-            )
+                new THREE.Vector3(0, 0, maxOffset - 5),
+            ),
         );
 
         mesh.rotation.copy(this.rotation);
@@ -511,7 +511,7 @@ export default class MonitorScreen extends EventEmitter {
             const distance = Math.sqrt(
                 (camPos.x - dimPos.x) ** 2 +
                     (camPos.y - dimPos.y) ** 2 +
-                    (camPos.z - dimPos.z) ** 2
+                    (camPos.z - dimPos.z) ** 2,
             );
 
             const opacity = 1 / (distance / 10000);

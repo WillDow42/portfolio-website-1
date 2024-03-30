@@ -6,8 +6,8 @@ interface InfoOverlayProps {
     visible: boolean;
 }
 
-const NAME_TEXT = 'Henry Heffernan';
-const TITLE_TEXT = 'Software Engineer';
+const NAME_TEXT = 'Will Downing';
+const TITLE_TEXT = 'Year 12 Student';
 const MULTIPLIER = 1;
 
 const InfoOverlay: React.FC<InfoOverlayProps> = ({ visible }) => {
@@ -27,29 +27,32 @@ const InfoOverlay: React.FC<InfoOverlayProps> = ({ visible }) => {
         text: string,
         setText: React.Dispatch<React.SetStateAction<string>>,
         callback: () => void,
-        refOverride?: React.MutableRefObject<string>
+        refOverride?: React.MutableRefObject<string>,
     ) => {
         if (refOverride) {
             text = refOverride.current;
         }
         if (i < text.length) {
-            setTimeout(() => {
-                if (visRef.current === true)
-                    window.postMessage(
-                        { type: 'keydown', key: `_AUTO_${text[i]}` },
-                        '*'
-                    );
+            setTimeout(
+                () => {
+                    if (visRef.current === true)
+                        window.postMessage(
+                            { type: 'keydown', key: `_AUTO_${text[i]}` },
+                            '*',
+                        );
 
-                setText(curText + text[i]);
-                typeText(
-                    i + 1,
-                    curText + text[i],
-                    text,
-                    setText,
-                    callback,
-                    refOverride
-                );
-            }, Math.random() * 50 + 50 * MULTIPLIER);
+                    setText(curText + text[i]);
+                    typeText(
+                        i + 1,
+                        curText + text[i],
+                        text,
+                        setText,
+                        callback,
+                        refOverride,
+                    );
+                },
+                Math.random() * 50 + 50 * MULTIPLIER,
+            );
         } else {
             callback();
         }
@@ -68,7 +71,7 @@ const InfoOverlay: React.FC<InfoOverlayProps> = ({ visible }) => {
                             () => {
                                 setTextDone(true);
                             },
-                            timeRef
+                            timeRef,
                         );
                     });
                 });
@@ -122,7 +125,7 @@ const InfoOverlay: React.FC<InfoOverlayProps> = ({ visible }) => {
                         style={Object.assign(
                             {},
                             styles.container,
-                            styles.lastRowChild
+                            styles.lastRowChild,
                         )}
                     >
                         <p>{timeText}</p>
